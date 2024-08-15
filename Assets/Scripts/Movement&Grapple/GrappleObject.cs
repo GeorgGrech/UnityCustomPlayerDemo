@@ -11,8 +11,9 @@ public class GrappleObject : MonoBehaviour
     public float grappleSpeed;
 
     public float maxGrappleDistance;
+    public Vector3 playerVel; //Used for inheritance
 
-    public Vector3 surfaceNormal;
+    //public Vector3 surfaceNormal;
 
     public string grappleableLayer;
 
@@ -51,8 +52,8 @@ public class GrappleObject : MonoBehaviour
 
                 GetComponent<Rigidbody>().isKinematic = true;
                 StopCoroutine(grappleCoroutine); //Stop grapple Lifetime
-                
-                spawnedGrappleModel.transform.rotation = Quaternion.FromToRotation(Vector3.forward, surfaceNormal);
+
+                spawnedGrappleModel.transform.rotation = Quaternion.FromToRotation(Vector3.forward, collision.GetContact(0).normal);
                 spawnedGrappleModel.transform.Rotate(new Vector3(180, 0, 0)); //Flip around
                 //transform.rotation = Quaternion.FromToRotation(Vector3.forward, surfaceNormal);
 
@@ -74,7 +75,9 @@ public class GrappleObject : MonoBehaviour
     public void ThrowGrapple()
     {
         transform.LookAt(grapplePoint);
-        GetComponent<Rigidbody>().AddForce(transform.forward * grappleSpeed);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * grappleSpeed);
+        rb.velocity += playerVel; //Add player Velocity in case of inheritance. If inheritance is off this will be (0,0,0)
 
 
         grappleCoroutine = StartCoroutine(Lifetime());

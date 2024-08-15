@@ -1924,6 +1924,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2635684106963020395, guid: 8c174c161b37a0a44b55827552caa784,
+        type: 3}
+      propertyPath: inheritance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2657946322873547151, guid: 8c174c161b37a0a44b55827552caa784,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2525,10 +2530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42dcaff48795c1c45a6a1673c626ed72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultsPath: 
-  enableDDA: 1
-  physicsBasedDDA: 1
-  mmsui: {fileID: 0}
 --- !u!4 &786061499
 Transform:
   m_ObjectHideFlags: 0

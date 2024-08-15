@@ -1068,7 +1068,7 @@ MonoBehaviour:
     m_Bits: 64
   grappleableLayerName: Environment
   grappleKey: 324
-  cancelWhenObstructed: 0
+  cancelWhenObstructed: 1
   cancelWhenClose: 0
   autoCancelDistance: 1.5
   lr: {fileID: 0}

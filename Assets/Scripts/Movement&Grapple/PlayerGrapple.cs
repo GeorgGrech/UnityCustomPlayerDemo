@@ -28,6 +28,7 @@ public class PlayerGrapple : MonoBehaviour
     public string grappleableLayerName; //Using LayerMask with the grappleObject coughed up errors. So string it is. Cry about it.
     
     private GrappleObject grappleObject;
+    [SerializeField] bool inheritance; //Inherit player's velocity
 
     [Header("Input")]
     public KeyCode grappleKey = KeyCode.Mouse1;
@@ -49,6 +50,8 @@ public class PlayerGrapple : MonoBehaviour
     public LineRenderer lr;
 
     public GameObject spawnedGrappleModel; //this shouldn't be here, but idk how else to fix this bug.
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -113,35 +116,30 @@ public class PlayerGrapple : MonoBehaviour
         grappling = true;
         lr.enabled = true;
 
-        RaycastHit hit;
-        if (Physics.Raycast(playerCam.position, playerCam.forward, out hit, maxGrappleDistance, grappleableLayer) && !hit.collider.isTrigger)
-        {
-            grapplePoint = hit.point;
-            
-        }
-        else
-        {
-            grapplePoint = playerCam.position + playerCam.forward * maxGrappleDistance;
-        }
+      
+        grapplePoint = playerCam.position + playerCam.forward * maxGrappleDistance;
 
-        InstantiateGrapple(hit.normal);
+        InstantiateGrapple();
         EnableGrappleModel(false);
 
         //lr.enabled = true;
         //lr.SetPosition(1, grapplePoint);
     }
 
-    private void InstantiateGrapple(Vector3 surfaceNormal)
+    private void InstantiateGrapple()
     {
         grappleObject = GameObject.Instantiate(grapplePrefab,throwPoint.position,Quaternion.identity).GetComponent<GrappleObject>();
 
+        //Terrible. Use a constructor or something.
         grappleObject.grappleSpeed = grappleSpeed;
         grappleObject.grapplePoint = grapplePoint;
         grappleObject.playerGrapple = this;
 
-        grappleObject.surfaceNormal = surfaceNormal;
         grappleObject.grappleableLayer = grappleableLayerName;
         grappleObject.maxGrappleDistance= maxGrappleDistance;
+
+        if (inheritance)
+            grappleObject.playerVel = rb.velocity;
 
         grappleObject.ThrowGrapple();
     }
