@@ -92,7 +92,7 @@ public class WaveManager : MonoBehaviour
             Debug.Log("flyingInWave; " + flyingInWave);
             leftInWave = flyingInWave /* groundInWave*/;
             UpdateUI();
-            //This system spawns ALL flying enemies, then ALL ground enemies. Possibly alternate?
+
             for (int j = 0; j < flyingInWave; j++)
             {
                 GameObject enemy = SpawnEnemyAtPoint(flyingEnemyPrefab, flyingSpawnPoints);
