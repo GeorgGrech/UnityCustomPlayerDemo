@@ -20,7 +20,7 @@ public class GrappleObject : MonoBehaviour
 
     public Coroutine grappleCoroutine; //Used for both throwing grapple and pulling player
 
-    public GameObject grappleModelPrefab; //Fuck it, we cheat
+    public GameObject grappleModelPrefab; // Model to spawn and move in accordance to grapple
     public GameObject spawnedGrappleModel;
 
     // Start is called before the first frame update

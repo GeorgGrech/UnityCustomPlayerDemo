@@ -25,7 +25,7 @@ public class PlayerGrapple : MonoBehaviour
     [Space(10)]
     public Vector3 grapplePoint;
     public LayerMask grappleableLayer;
-    public string grappleableLayerName; //Using LayerMask with the grappleObject coughed up errors. So string it is. Cry about it.
+    public string grappleableLayerName; //String used due to issue with LayerMask. TO DO: Check if issues can be resolved to use LayerMask.
     
     private GrappleObject grappleObject;
 
@@ -48,7 +48,7 @@ public class PlayerGrapple : MonoBehaviour
 
     public LineRenderer lr;
 
-    public GameObject spawnedGrappleModel; //this shouldn't be here, but idk how else to fix this bug.
+    public GameObject spawnedGrappleModel; //TO DO: Necessary due to a bug. Check if it can be removed.
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +66,7 @@ public class PlayerGrapple : MonoBehaviour
         {
             if (Input.GetKeyUp(grappleKey) && grappling) grappleObject.CancelGrapple();
         }
-        else //Emulate CancelGrapple
+        else //Emulate CancelGrapple. TO DO: Refactor to use one CancelGrapple method globally
         {
             lr.enabled = false;
             grappling = false;
@@ -81,7 +81,7 @@ public class PlayerGrapple : MonoBehaviour
                 lr.SetPosition(0, throwPoint.position);
                 lr.SetPosition(1, grappleObject.transform.position);
 
-                grappleObject.spawnedGrappleModel.transform.position = grappleObject.transform.position; //Ideally this would be done in GrappleObject. Too bad I don't care.
+                grappleObject.spawnedGrappleModel.transform.position = grappleObject.transform.position; //TO DO: Ideally this would be done in GrappleObject
                 if ((cancelWhenObstructed
                     && Physics.Linecast(throwPoint.position, grappleObject.transform.position, grappleableLayer)) // Cancel when obstructed
                     
